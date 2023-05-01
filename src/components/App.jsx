@@ -1,16 +1,33 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+import { Component } from "react";
+
+import { Form } from "./Form/Form";
+
+
+
+export class App extends Component {
+  state = {
+    contacts: [],
+    name: ''
+  };
+
+  handleAddContact = (newContact) => {
+    this.setState(({contacts}) => {
+      //console.log(prev);
+      return {
+        contacts: [...contacts, newContact]
+      }
+    });
+  };
+
+  render() {
+    return (
+    <div>
+        <Form handleAddContact={ this.handleAddContact} />
+        
+        <p>Contacts :</p>
+        
     </div>
-  );
+    );
+    
+  }
 };
