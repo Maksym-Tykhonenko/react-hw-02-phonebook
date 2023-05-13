@@ -11,30 +11,30 @@ export class Form extends Component {
     };
 
     handleInputChange = (e) => {
+        //console.log(e.currentTarget.value);
+        //console.log(e.currentTarget.name);
         const { name, value } = e.currentTarget;
+        
         this.setState({
             [name]: value,
             id: nanoid(),
         });
-        //console.log(e.currentTarget.value);
-        //console.log(e.currentTarget.name);
     };
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        this.props.handleAddContact(this.state)
-        
-       this.reset()
-        
+
+            this.props.handleAddContact(this.state);
+            this.reset();
     };
 
     reset = () => {
         this.setState({
             name: '',
-            number: ''
+            number: '',
+            id: '',
         });
     };
-
 
     render() {
         const { name, number } = this.state;
@@ -67,3 +67,4 @@ export class Form extends Component {
         );
     };
 };
+//  

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { Form } from "./Form/Form";
 import { Contacts } from "./Contacts/Contacts";
@@ -7,11 +8,35 @@ import { FiltredContactList } from "./FiltredContactList/FiltredContactList";
 import { Section } from "./Section/Section";
 
 
+  
 
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
+  };
+
+  componentDidMount() {
+    console.log('DidMount')
+    
+    //const localStorageContacts = localStorage.getItem('contacts');
+    const parsContacts = JSON.parse(localStorage.getItem('contacts'))
+    
+    if (parsContacts) {
+      console.log('виполн if')
+      this.setState({ contacts: parsContacts })
+    };
+    
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('DidUpdate')
+    console.log(prevState)
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    };
+    
+
   };
 
   handleAddContact = (newContact) => {
@@ -22,7 +47,9 @@ export class App extends Component {
       return {
         contacts: [...contacts, newContact]
       }
-    }) : alert(`Contact ${newContact.name} added`)
+      }) : Notify.warning(`Contact ${newContact.name} added`,
+        {
+          width: '460px',})
   };
 
   handleWriteToFilter = (contact) => {
@@ -51,29 +78,30 @@ export class App extends Component {
   };
 
   render() {
-    const filtredContacts = this.writeToFilter()
+    const filtredContacts = this.writeToFilter();
+    const {contacts, filter} = this.state;
 
     return (
       <div>
         <Section title='Phonebook'>
           <Form handleAddContact={this.handleAddContact} />
         </Section>
-        {this.state.contacts.length > 0 &&  <Section title='Contacts:'>
+
+        {contacts.length > 0 && <Section title='Contacts:'>
           <Filter searchContact={this.handleWriteToFilter} />
-          {this.state.filter === '' ?
+
+          {filter === '' ?
             <Contacts
-              contacts={this.state.contacts}
-              delContact={this.delContact } />
+              contacts={contacts}
+              delContact={this.delContact} />
             : <FiltredContactList
-                filtredContacts={filtredContacts}
-                delContact={this.delContact } />}
+              filtredContacts={filtredContacts}
+              delContact={this.delContact} />}
         
         </Section>}
-       
-        
       </div>
     );
     
-  }
+  };
 };
-//
+

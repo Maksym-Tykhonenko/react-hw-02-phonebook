@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
 `
