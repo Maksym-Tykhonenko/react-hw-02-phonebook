@@ -1,5 +1,5 @@
 import { Name, Item, List, Btn } from '../Contacts/Contacts.styled'
-
+//
 export const FiltredContactList = ({ filtredContacts, delContact }) => {
     return (
         <List>
@@ -10,9 +10,11 @@ export const FiltredContactList = ({ filtredContacts, delContact }) => {
                         <Btn
                             type='button'
                             onClick={() => delContact(id)} >Dellite</Btn>
+                        
                     </Item>
-                )
+                );
             })}
         </List>
     )
 };
+

@@ -20,11 +20,11 @@ export class App extends Component {
     console.log('DidMount')
     
     //const localStorageContacts = localStorage.getItem('contacts');
-    const parsContacts = JSON.parse(localStorage.getItem('contacts'))
+    const contactsFromLocalSt = JSON.parse(localStorage.getItem('contacts'))
     
-    if (parsContacts) {
+    if (contactsFromLocalSt) {
       console.log('виполн if')
-      this.setState({ contacts: parsContacts })
+      this.setState({ contacts: contactsFromLocalSt })
     };
     
   };
